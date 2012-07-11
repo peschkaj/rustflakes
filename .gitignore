@@ -1,6 +1,31 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 bin
+Bin
+BIN
 obj
+Obj
+OBJ
+debug
+Debug
+DEBUG
+release
+Release
+RELEASE
 
-# mstest test results
-TestResults
+*.orig
+*.ncb
+*.obj
+*.suo
+*.user
+*.swp
+*.*~
+_Re*
+\.DS_Store
+*.userprefs
+*.pidb
+*.zip
+test-results/*
+*.dotCover
+*.nupkg
+test-results
+packages/*
