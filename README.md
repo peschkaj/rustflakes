@@ -1,7 +1,7 @@
 rustflakes
 ==========
 
-A distributed, ordered ID generation service for .NET. The implementation is heavily derivative of Boundary's [flake](https://github.com/boundary/flake).
+An ordered ID generation service for .NET that is generator aware making it ideal for distributed ID generation. The implementation is heavily derivative of Boundary's [flake](https://github.com/boundary/flake).
 
 ## Identifiers ## 
 
@@ -17,6 +17,15 @@ Identifiers are generated as 128-bit numbers:
 * Sample service implementation
 
 ## Questions ##
+
+### How do I use this? ###
+
+Take a look at the `ConsoleFlakes` implementation. Or, if you're lazy:
+
+	var o = new RustFlakes.Oxidation(new byte[] {0, 1, 2, 3, 4, 5});
+	var id = o.Oxidize();
+
+Create a new `RustFlakes.Oxidation` object with some kind of generator identifier - this might be a machine identifier, MAC address, or random identifier that's generated from a separate service every time you call it.
 
 ### What should I use as the worker identifier? ###
 
