@@ -47,3 +47,7 @@ It's probably not. I wrote this one afternoon in a hotel room because I was sick
 1 - Other people are smarter than me. I borrowed from their work.
 2 - While machine identity isn't needed or desirable for some parts of a distributed system, they work great as arbitrary node identifiers. I don't make you choose a mechanism for your node identifier, but I don't foist my bad decisions on you either.
 3 - There is no 3
+
+### Thanks
+
+Special thanks to [Dave Liebers](https://github.com/dlswimmer) for making sure the bit shifting works correctly in ShortOxidizer.

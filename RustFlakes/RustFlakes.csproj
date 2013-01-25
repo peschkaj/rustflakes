@@ -38,6 +38,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Oxidation.cs" />
+    <Compile Include="UInt64Oxidation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2012 - Jeremiah Peschka
+﻿// Copyright (c) 2013 - Jeremiah Peschka
 //
 // This file is provided to you under the Apache License,
 // Version 2.0 (the "License"); you may not use this file
@@ -19,8 +19,8 @@ using System.Linq;
 
 namespace RustFlakes
 {
-	public class Oxidation
-	{
+    public class Oxidation
+    {
 		private readonly ulong _epoch;
 
 		private ulong _lastOxidizedInMs;
