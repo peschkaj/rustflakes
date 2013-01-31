@@ -45,7 +45,7 @@ namespace RustFlakes
         {
             HandleTime();
 
-            return (ulong)((_lastOxidizedInMs << 32) + (_identifier << 16) + _counter);
+            return ((ulong) _lastOxidizedInMs << 32) + ((ulong) _identifier << 16) + _counter;
         }
 
         private void HandleTime()
@@ -69,7 +69,7 @@ namespace RustFlakes
 
         private uint CurrentTimeCounter()
         {
-            return (uint)Math.Floor((DateTime.UtcNow - _epoch).TotalMilliseconds);
+            return (uint) Math.Floor((DateTime.UtcNow - _epoch).TotalMilliseconds);
         }
     }
 }
