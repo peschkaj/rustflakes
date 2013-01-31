@@ -21,7 +21,7 @@ namespace RustFlakes
 {
     public class Oxidation
     {
-		private readonly ulong _epoch;
+		private readonly DateTime _epoch;
 
 		private ulong _lastOxidizedInMs;
 		private readonly UInt32 _identifier;
@@ -29,7 +29,7 @@ namespace RustFlakes
 
 		public Oxidation(byte[] identifier)
 		{
-			_epoch = ((ulong) (new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)).Ticks/10);
+			_epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
 
 			_lastOxidizedInMs = CurrentTimeCounter();
 
@@ -85,7 +85,7 @@ namespace RustFlakes
 
 		private ulong CurrentTimeCounter()
 		{
-			return ((ulong) DateTime.UtcNow.Ticks/10) - _epoch;
+			return (ulong) (DateTime.UtcNow - _epoch).TotalMilliseconds;
 		}
 	}
 }

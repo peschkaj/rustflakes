@@ -22,18 +22,43 @@ namespace ConsoleFlakes
 	{
 		public static void Main(string[] args)
 		{
-			var o = new RustFlakes.Oxidation(new byte[] {0, 1, 2, 3, 4, 5});
+			TestOxidations();
+            TestUInt64Oxidations();
 
-			var start = DateTime.UtcNow;
-
-			for (var i = 0; i < 65536; i++)
-			{
-				o.Oxidize();
-			}
-
-			var finish = DateTime.UtcNow;
-			var diff = finish - start;
-			Console.WriteLine(string.Format("Generated 65536 oxidations in {0}ms", diff.TotalMilliseconds));
+            Console.WriteLine("Press enter");
+		    Console.ReadLine();
 		}
+
+        internal static void TestOxidations()
+        {
+            var o = new RustFlakes.Oxidation(new byte[] { 0, 1, 2, 3, 4, 5 });
+
+            var start = DateTime.UtcNow;
+
+            for (var i = 0; i < 65536; i++)
+            {
+                o.Oxidize();
+            }
+
+            var finish = DateTime.UtcNow;
+            var diff = finish - start;
+            Console.WriteLine("decimal: Generated 65536 oxidations in {0}ms", diff.TotalMilliseconds);
+        }
+
+        internal static void TestUInt64Oxidations()
+        {
+            var o = new RustFlakes.UInt64Oxidation(1);
+
+            var start = DateTime.UtcNow;
+
+            for (var i = 0; i < 65536; i++)
+            {
+                o.Oxidize();
+            }
+
+            var finish = DateTime.UtcNow;
+            var diff = finish - start;
+            Console.WriteLine("64-bit:  Generated 65536 oxidations in {0}ms", diff.TotalMilliseconds);
+        }
 	}
 }

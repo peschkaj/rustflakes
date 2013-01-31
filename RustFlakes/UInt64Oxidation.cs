@@ -66,7 +66,7 @@ namespace RustFlakes
 
         private uint CurrentTimeCounter()
         {
-            return (uint) (DateTime.UtcNow - _epoch).Ticks/10;
+            return (uint) Math.Floor((DateTime.UtcNow - _epoch).TotalMilliseconds);
         }
     }
 }
