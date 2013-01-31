@@ -26,9 +26,8 @@ namespace RustFlakes
         private readonly ushort _identifier;
         private ushort _counter;
 
-        // 2/1/0001 12:00:00 AM
         public UInt64Oxidation(ushort identifier)
-            : this(identifier, new DateTime(26784000000000, DateTimeKind.Utc))
+            : this(identifier, new DateTime(2013, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
         { }
 
         public UInt64Oxidation(ushort identifier, DateTime customEpoch)
@@ -46,7 +45,7 @@ namespace RustFlakes
         {
             HandleTime();
 
-            return ((ulong) _lastOxidizedInMs << 32) + ((ulong) _identifier << 16) + _counter;
+            return (ulong)((_lastOxidizedInMs << 32) + (_identifier << 16) + _counter);
         }
 
         private void HandleTime()
@@ -70,7 +69,7 @@ namespace RustFlakes
 
         private uint CurrentTimeCounter()
         {
-            return (uint) (DateTime.UtcNow - _epoch).Ticks/10;
+            return (uint)Math.Floor((DateTime.UtcNow - _epoch).TotalMilliseconds);
         }
     }
 }
