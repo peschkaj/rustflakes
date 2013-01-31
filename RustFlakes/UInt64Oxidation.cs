@@ -26,10 +26,14 @@ namespace RustFlakes
         private readonly ushort _identifier;
         private ushort _counter;
 
+        // 2/1/0001 12:00:00 AM
         public UInt64Oxidation(ushort identifier)
+            : this(identifier, new DateTime(26784000000000, DateTimeKind.Utc))
+        { }
+
+        public UInt64Oxidation(ushort identifier, DateTime customEpoch)
         {
-            
-            _epoch = new DateTime(2013, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            _epoch = customEpoch;
 
             _lastOxidizedInMs = CurrentTimeCounter();
 
