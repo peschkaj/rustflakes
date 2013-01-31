@@ -37,7 +37,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo1.cs" />
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Oxidation.cs" />
     <Compile Include="UInt64Oxidation.cs" />
   </ItemGroup>
