@@ -30,9 +30,9 @@ namespace RustFlakes
             : this(identifier, new DateTime(2013, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
         { }
 
-        public UInt64Oxidation(ushort identifier, DateTime customEpoch)
+        public UInt64Oxidation(ushort identifier, DateTime epoch)
         {
-            _epoch = customEpoch;
+            _epoch = epoch;
 
             _lastOxidizedInMs = CurrentTimeCounter();
 
