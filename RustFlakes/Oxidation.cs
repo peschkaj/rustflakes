@@ -28,7 +28,8 @@ namespace RustFlakes
 		private UInt16 _counter;
 
 		public Oxidation(byte[] identifier)
-			: this(identifier, new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+			: this(identifier, new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
+        {}
 
 		public Oxidation(byte[] identifier, DateTime epoch)
 		{
