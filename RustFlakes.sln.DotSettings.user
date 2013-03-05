@@ -13,4 +13,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY&#xD;
 // KIND, either express or implied.  See the License for the&#xD;
 // specific language governing permissions and limitations&#xD;
-// under the License.</s:String></wpf:ResourceDictionary>
+// under the License.</s:String>
+	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=BE7C2BE7F7FF4440B535C4FCAA2A9FBC/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=BE7C2BE7F7FF4440B535C4FCAA2A9FBC/Name/@EntryValue">DecimalOxidationTests</s:String>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=BE7C2BE7F7FF4440B535C4FCAA2A9FBC/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements&gt;&lt;UnitTestElement Provider="nUnit" Id="RustFlakesTests.DecimalOxidationTests" type="NUnitTestFixtureElement" Project="4520A654-A1E3-42B0-9C21-EE4DD05D09A5" /&gt;&lt;UnitTestElement Provider="nUnit" Id="RustFlakesTests.DecimalOxidationTests.SequentialKeysAreSequential" ParentId="RustFlakesTests.DecimalOxidationTests" type="NUnitTestElement" TypeName="RustFlakesTests.DecimalOxidationTests" MethodName="SequentialKeysAreSequential" Project="4520A654-A1E3-42B0-9C21-EE4DD05D09A5" /&gt;&lt;UnitTestElement Provider="nUnit" Id="RustFlakesTests.DecimalOxidationTests.ShouldMaintain32BitWorkerId" ParentId="RustFlakesTests.DecimalOxidationTests" type="NUnitTestElement" TypeName="RustFlakesTests.DecimalOxidationTests" MethodName="ShouldMaintain32BitWorkerId" Project="4520A654-A1E3-42B0-9C21-EE4DD05D09A5" /&gt;&lt;/Elements&gt;&lt;/Session&gt;</s:String></wpf:ResourceDictionary>
