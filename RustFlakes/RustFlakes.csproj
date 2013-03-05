@@ -37,12 +37,15 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo1.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="BigIntegerOxidation.cs" />
+    <Compile Include="DecimalOxidation.cs" />
     <Compile Include="Oxidation.cs" />
     <Compile Include="UInt64Oxidation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Numerics" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
