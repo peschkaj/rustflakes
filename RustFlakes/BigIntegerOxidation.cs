@@ -86,8 +86,8 @@ namespace RustFlakes
             var result = new byte[16];
 
             // first 2 bytes are the key space counter
-            result[0] = (byte) _counter;
-            result[1] = (byte) (_counter >> 8);
+            result[0] = (byte) Counter;
+            result[1] = (byte) (Counter >> 8);
 
             // next 6-bytes are the worker id
             for (var i = 0; i < 6; i++)
@@ -95,7 +95,7 @@ namespace RustFlakes
 
             // next 8 bytes are the time counter
             for (var i = 0; i < 8; i++)
-                result[i + 8] = (byte) (_lastOxidizedInMs >> (i*8));
+                result[i + 8] = (byte) (LastOxidizedInMs >> (i*8));
 
             return new BigInteger(result);
         }

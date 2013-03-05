@@ -29,7 +29,7 @@ namespace RustFlakes
         /// <summary>
         /// Initialize the oxidizer using supplied worker id and the default epoch (1/1/2013)
         /// </summary>
-        /// <param name="epoch">The epoch used to source the 48-bit time counter</param>
+        /// <param name="identifier">The 32-bit worker id</param>
         public DecimalOxidation(uint identifier)
             : this(identifier, DefaultEpoch)
         {
@@ -55,9 +55,9 @@ namespace RustFlakes
             Update();
 
             return new decimal(
-                (int) ((_identifier << 16) + _counter),
-                (int) ((_lastOxidizedInMs << 16) + (_identifier >> 16)),
-                (int) ((_lastOxidizedInMs >> 16) & 0xFFFFFFFF),
+                (int) ((_identifier << 16) + Counter),
+                (int) ((LastOxidizedInMs << 16) + (_identifier >> 16)),
+                (int) ((LastOxidizedInMs >> 16) & 0xFFFFFFFF),
                 false,
                 0);
         }

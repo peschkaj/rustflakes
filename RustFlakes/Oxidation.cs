@@ -23,15 +23,15 @@ namespace RustFlakes
     {
         public static readonly DateTime DefaultEpoch = new DateTime(2013, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        protected ushort _counter;
-        protected readonly DateTime _epoch;
-        protected ulong _lastOxidizedInMs;
+        protected ushort Counter;
+        protected readonly DateTime Epoch;
+        protected ulong LastOxidizedInMs;
 
         protected Oxidation(DateTime epoch)
         {
-            _counter = 0;
-            _epoch = epoch;
-            _lastOxidizedInMs = CurrentTime();
+            Counter = 0;
+            Epoch = epoch;
+            LastOxidizedInMs = CurrentTime();
         }
 
         public abstract T Oxidize();
@@ -40,16 +40,16 @@ namespace RustFlakes
         {
             var timeInMs = CurrentTime();
 
-            if (_lastOxidizedInMs > timeInMs)
+            if (LastOxidizedInMs > timeInMs)
                 throw new ApplicationException("Clock is running backwards");
 
-            _counter = (ushort) ((_lastOxidizedInMs < timeInMs) ? 0 : _counter + 1);
-            _lastOxidizedInMs = timeInMs;
+            Counter = (ushort) ((LastOxidizedInMs < timeInMs) ? 0 : Counter + 1);
+            LastOxidizedInMs = timeInMs;
         }
 
         private ulong CurrentTime()
         {
-            return (ulong) (DateTime.UtcNow - _epoch).TotalMilliseconds;
+            return (ulong) (DateTime.UtcNow - Epoch).TotalMilliseconds;
         }
     }
 }

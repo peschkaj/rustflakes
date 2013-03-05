@@ -37,7 +37,7 @@ namespace RustFlakes
         public override ulong Oxidize()
         {
             Update();
-            return (_lastOxidizedInMs << 32) + (ulong) (_identifier << 16) + _counter;
+            return (LastOxidizedInMs << 32) + (ulong) (_identifier << 16) + Counter;
         }
     }
 }
