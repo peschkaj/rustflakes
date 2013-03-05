@@ -1,4 +1,5 @@
 ﻿// Copyright (c) 2013 - Jeremiah Peschka
+// Copyright (c) 2013 - Mike Haboustak
 //
 // This file is provided to you under the Apache License,
 // Version 2.0 (the "License"); you may not use this file
@@ -15,79 +16,38 @@
 // under the License.
 
 using System;
-using System.Linq;
 
 namespace RustFlakes
 {
-    public class Oxidation
+    public abstract class Oxidation<T>
     {
-		private readonly DateTime _epoch;
+        public static readonly DateTime DefaultEpoch = new DateTime(2013, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-		private ulong _lastOxidizedInMs;
-		private readonly UInt32 _identifier;
-		private UInt16 _counter;
+        protected ushort _counter;
+        protected readonly DateTime _epoch;
+        protected ulong _lastOxidizedInMs;
 
-		public Oxidation(byte[] identifier)
-			: this(identifier, new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
-        {}
-
-		public Oxidation(byte[] identifier, DateTime epoch)
-		{
+		protected Oxidation(DateTime epoch)
+        {
+            _counter = 0;
 			_epoch = epoch;
-
-			_lastOxidizedInMs = CurrentTimeCounter();
-
-			if (BitConverter.IsLittleEndian)
-				Array.Reverse(identifier);
-
-			// shorten identifier to 6 bytes
-			if (identifier.Length > 6)
-				identifier = identifier.Take(6).ToArray();
-
-			_identifier = BitConverter.ToUInt32(identifier, 0);
-			_counter = 0;
+            _lastOxidizedInMs = CurrentTime();
 		}
 
+        public abstract T Oxidize();
 
-		public decimal Oxidize()
+		protected void Update()
 		{
-			HandleTime();
+            var timeInMs = CurrentTime();
 
-			/* Shift _identifier to the left by 48 bits to occupy the appropriate
-			 * position in the Decimal.
-			 */
-			var i = _identifier << 48;
+            if (_lastOxidizedInMs > timeInMs)
+                throw new ApplicationException("Clock is running backwards");
 
-			/* Add UInt64.MaxValue to lastOxidizedInMs to bit shift by 64 bits.
-			 * Convert to decimal first to avoid bits wrapping around in the background.
-			 * 
-			 * Add the shifted identifier
-			 * Add the counter
-			 */
-			return (_lastOxidizedInMs + (decimal) UInt64.MaxValue) + i + _counter;
+            _counter = (ushort)((_lastOxidizedInMs < timeInMs) ? 0 : _counter + 1);
+            _lastOxidizedInMs = timeInMs;
 		}
 
-
-		private void HandleTime()
-		{
-			var ct = CurrentTimeCounter();
-
-			if (_lastOxidizedInMs < ct)
-			{
-				_lastOxidizedInMs = ct;
-				_counter = 0;
-			}
-			else if (_lastOxidizedInMs > ct)
-			{
-				throw new ApplicationException("Clock is running backwards");
-			}
-			else
-			{
-				_counter++;
-			}
-		}
-
-		private ulong CurrentTimeCounter()
+		private ulong CurrentTime()
 		{
 			return (ulong) (DateTime.UtcNow - _epoch).TotalMilliseconds;
 		}

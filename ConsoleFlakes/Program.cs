@@ -23,6 +23,7 @@ namespace ConsoleFlakes
 		public static void Main(string[] args)
 		{
 			TestOxidations();
+		    TestDecimalOxidations();
             TestUInt64Oxidations();
 
             Console.WriteLine("Press enter");
@@ -31,7 +32,7 @@ namespace ConsoleFlakes
 
         internal static void TestOxidations()
         {
-            var o = new RustFlakes.Oxidation(new byte[] { 0, 1, 2, 3, 4, 5 });
+            var o = new RustFlakes.BigIntegerOxidation(new byte[] { 0, 1, 2, 3, 4, 5 });
 
             var start = DateTime.UtcNow;
 
@@ -42,9 +43,24 @@ namespace ConsoleFlakes
 
             var finish = DateTime.UtcNow;
             var diff = finish - start;
-            Console.WriteLine("decimal: Generated 65536 oxidations in {0}ms", diff.TotalMilliseconds);
+            Console.WriteLine("BigInteger: Generated 65536 oxidations in {0}ms", diff.TotalMilliseconds);
         }
 
+        internal static void TestDecimalOxidations()
+        {
+            var o = new RustFlakes.DecimalOxidation(1);
+
+            var start = DateTime.UtcNow;
+
+            for (var i = 0; i < 65536; i++)
+            {
+                o.Oxidize();
+            }
+
+            var finish = DateTime.UtcNow;
+            var diff = finish - start;
+            Console.WriteLine("Decimal:  Generated 65536 oxidations in {0}ms", diff.TotalMilliseconds);
+        }
         internal static void TestUInt64Oxidations()
         {
             var o = new RustFlakes.UInt64Oxidation(1);
