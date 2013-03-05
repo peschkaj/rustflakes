@@ -1,4 +1,5 @@
-﻿// Copyright (c) 2012 - Jeremiah Peschka
+﻿// Copyright (c) 2013 - Jeremiah Peschka
+// Copyright (c) 2013 - Mike Haboustak
 //
 // This file is provided to you under the Apache License,
 // Version 2.0 (the "License"); you may not use this file
