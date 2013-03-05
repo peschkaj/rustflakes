@@ -15,37 +15,45 @@
 // specific language governing permissions and limitations
 // under the License.
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using RustFlakes;
 
-namespace RustFlakes
+namespace RustFlakesTests
 {
-    [TestClass]
+    [TestFixture]
     public class UInt64OxidationTests
     {
-        [TestMethod]
-        public void Should_maintain_16bit_worker_id()
-        {
-            // 16-bits = 4 hex digits 
-            ushort worker_id = 0xabcd;
+        // 16-bits = 4 hex digits
+        internal ushort WorkerId;
 
-            var oxidation = new UInt64Oxidation(worker_id);
-            ulong key = oxidation.Oxidize();
-            ushort id = (ushort) (key >> 16 & 0xffff);
-            Assert.AreEqual(worker_id, id);
+        [SetUp]
+        public void Setup()
+        {
+            WorkerId = 0xabcd;
         }
 
-        [TestMethod]
-        public void Sequential_keys_are_sequential()
+        [Test]
+        public void ShouldMaintain16BitWorkerId()
         {
-            // 32-bits = 8 hex digits 
-            var oxidation = new UInt64Oxidation(0xabcd);
-            decimal key = oxidation.Oxidize();
-            decimal key2 = oxidation.Oxidize();
-            decimal key3 = oxidation.Oxidize();
+            var oxidation = new UInt64Oxidation(WorkerId);
+            var key = oxidation.Oxidize();
+            var id = (ushort) (key >> 16 & 0xffff);
+
+            Assert.AreEqual(WorkerId, id);
+        }
+
+        [Test]
+        public void SequentialKeysAreSequential()
+        {
+            var oxidation = new UInt64Oxidation(WorkerId);
+
+            var key = oxidation.Oxidize();
+            var key2 = oxidation.Oxidize();
+            var key3 = oxidation.Oxidize();
 
             System.Threading.Thread.Sleep(10);
-            decimal key4 = oxidation.Oxidize();
-            decimal key5 = oxidation.Oxidize();
+            var key4 = oxidation.Oxidize();
+            var key5 = oxidation.Oxidize();
 
             Assert.IsTrue(key5 > key4 && key4 > key3 && key3 > key2 && key2 > key);
         }

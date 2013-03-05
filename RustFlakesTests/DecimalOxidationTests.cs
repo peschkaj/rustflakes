@@ -17,41 +17,49 @@
 
 using System;
 using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using RustFlakes;
 
-namespace RustFlakes
+namespace RustFlakesTests
 {
-    [TestClass]
+    [TestFixture]
     public class DecimalOxidationTests
     {
-        [TestMethod]
-        public void Should_maintain_32bit_worker_id()
-        {
-            // 32-bits = 8 hex digits 
-            uint worker_id = 0x12345678;
+        internal uint WorkerId;
 
-            var oxidation = new DecimalOxidation(worker_id);
-            decimal key = oxidation.Oxidize();
+        [SetUp]
+        public void Setup()
+        {
+            WorkerId = 0xfedcba98;
+        }
+
+        [Test]
+        public void ShouldMaintain32BitWorkerId()
+        {
+            var oxidation = new DecimalOxidation(WorkerId);
+            var key = oxidation.Oxidize();
+
             var stream = new MemoryStream();
             using (var writer = new BinaryWriter(stream))
                 writer.Write(key);
+
             var result = stream.ToArray();
-            uint id = BitConverter.ToUInt32(result, 2);
-            Assert.AreEqual(worker_id, id);
+            var id = BitConverter.ToUInt32(result, 2);
+
+            Assert.AreEqual(WorkerId, id);
         }
 
-        [TestMethod]
-        public void Sequential_keys_are_sequential()
+        [Test]
+        public void SequentialKeysAreSequential()
         {
-            // 32-bits = 8 hex digits 
-            var oxidation = new DecimalOxidation(0xfedcba98);
-            decimal key = oxidation.Oxidize();
-            decimal key2 = oxidation.Oxidize();
-            decimal key3 = oxidation.Oxidize();
+            var oxidation = new DecimalOxidation(WorkerId);
+            var key = oxidation.Oxidize();
+            var key2 = oxidation.Oxidize();
+            var key3 = oxidation.Oxidize();
 
             System.Threading.Thread.Sleep(10);
-            decimal key4 = oxidation.Oxidize();
-            decimal key5 = oxidation.Oxidize();
+            var key4 = oxidation.Oxidize();
+            var key5 = oxidation.Oxidize();
 
             Assert.IsTrue(key5 > key4 && key4 > key3 && key3 > key2 && key2 > key);
         }

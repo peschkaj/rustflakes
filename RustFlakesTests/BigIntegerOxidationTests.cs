@@ -16,65 +16,76 @@
 // under the License.
 
 using System;
-using System.Numerics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using RustFlakes;
 
-namespace RustFlakes
+namespace RustFlakesTests
 {
-    [TestClass]
+    [TestFixture]
     public class BigIntegerOxidationTests
     {
-        [TestMethod]
-        public void Should_maintain_48bit_worker_id_from_ulong()
-        {
-            // 48-bits = 12 hex digits 
-            ulong worker_id = 0x12345678abcd;
+        // 48-bits = 12 hex digits 
+        internal ulong WorkerId;
 
-            var oxidation = new BigIntegerOxidation(worker_id);
-            BigInteger key = oxidation.Oxidize();
-            var result = key.ToByteArray();
-            ulong id = BitConverter.ToUInt64(result, 2) & BigIntegerOxidation.IdentifierMask;
-            Assert.AreEqual(worker_id, id);
+        [SetUp]
+        public void Setup()
+        {
+            WorkerId = 0x12345678abcd;
         }
 
-        [TestMethod]
-        public void Should_maintain_48bit_worker_id_from_littleendian()
+        [Test]
+        public void ShouldMaintain48BitWorkerIdFromULong()
         {
-            // 48-bits = 6 bytes
-            var worker_id = new byte[] {0x01, 0x02, 0x03, 0x04, 0x05, 0x06};
-
-            var oxidation = new BigIntegerOxidation(worker_id, BigIntegerOxidation.DefaultEpoch, true);
-            BigInteger key = oxidation.Oxidize();
+            var oxidation = new BigIntegerOxidation(WorkerId);
+            var key = oxidation.Oxidize();
             var result = key.ToByteArray();
-            for (var i = 0; i < 6; i++)
-                Assert.AreEqual(worker_id[i], result[i + 2]);
+
+            var id = BitConverter.ToUInt64(result, 2) & BigIntegerOxidation.IdentifierMask;
+
+            Assert.AreEqual(WorkerId, id);
         }
 
-        [TestMethod]
-        public void Should_maintain_48bit_worker_id_from_bigendian()
+        [Test]
+        public void ShouldMaintain48BitWorkerIdFromLittleEndian()
         {
             // 48-bits = 6 bytes
-            var worker_id = new byte[] {0x01, 0x02, 0x03, 0x04, 0x05, 0x06};
+            var workerId = new byte[] {0x01, 0x02, 0x03, 0x04, 0x05, 0x06};
 
-            var oxidation = new BigIntegerOxidation(worker_id);
-            BigInteger key = oxidation.Oxidize();
+            var oxidation = new BigIntegerOxidation(workerId, BigIntegerOxidation.DefaultEpoch, true);
+            var key = oxidation.Oxidize();
+
             var result = key.ToByteArray();
+            
             for (var i = 0; i < 6; i++)
-                Assert.AreEqual(worker_id[5 - i], result[i + 2]);
+                Assert.AreEqual(workerId[i], result[i + 2]);
         }
 
-        [TestMethod]
-        public void Sequential_keys_are_sequential()
+        [Test]
+        public void ShouldMaintain48BitWorkerIdFromBigEndian()
+        {
+            // 48-bits = 6 bytes
+            var workerId = new byte[] {0x01, 0x02, 0x03, 0x04, 0x05, 0x06};
+
+            var oxidation = new BigIntegerOxidation(workerId);
+            var key = oxidation.Oxidize();
+            var result = key.ToByteArray();
+
+            for (var i = 0; i < 6; i++)
+                Assert.AreEqual(workerId[5 - i], result[i + 2]);
+        }
+
+        [Test]
+        public void SequentialKeysAreSequential()
         {
             // 32-bits = 8 hex digits 
             var oxidation = new BigIntegerOxidation(0x12345678abcd);
-            BigInteger key = oxidation.Oxidize();
-            BigInteger key2 = oxidation.Oxidize();
-            BigInteger key3 = oxidation.Oxidize();
+            var key = oxidation.Oxidize();
+            var key2 = oxidation.Oxidize();
+            var key3 = oxidation.Oxidize();
 
             System.Threading.Thread.Sleep(10);
-            BigInteger key4 = oxidation.Oxidize();
-            BigInteger key5 = oxidation.Oxidize();
+            var key4 = oxidation.Oxidize();
+            var key5 = oxidation.Oxidize();
 
             Assert.IsTrue(key5 > key4 && key4 > key3 && key3 > key2 && key2 > key);
         }
