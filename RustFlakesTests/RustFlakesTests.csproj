@@ -55,6 +55,7 @@
     <Compile Include="BigIntegerOxidationTests.cs" />
     <Compile Include="DecimalOxidationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServerBigIntOxidationTests.cs" />
     <Compile Include="UInt64OxidationTests.cs" />
   </ItemGroup>
   <ItemGroup>

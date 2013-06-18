@@ -50,4 +50,5 @@ It's probably not. I wrote this one afternoon in a hotel room because I was sick
 
 ### Thanks
 
-Special thanks to [Dave Liebers](https://github.com/dlswimmer) for making sure the bit shifting works correctly in ShortOxidizer.
+* [Dave Liebers](https://github.com/dlswimmer) for making sure the bit shifting works correctly in ShortOxidizer.
+* [Mike Haboustak](https://github.com/haboustak) for providing unit tests and a thorough re-working of the oxidizers so they now work in 128, 96, and 64-bit forms.
