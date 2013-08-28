@@ -41,6 +41,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="BigIntegerOxidation.cs" />
     <Compile Include="DecimalOxidation.cs" />
+    <Compile Include="IOxidation.cs" />
     <Compile Include="Oxidation.cs" />
     <Compile Include="SqlServerBigIntOxidation.cs" />
     <Compile Include="UInt64Oxidation.cs" />
