@@ -19,7 +19,7 @@ using System;
 
 namespace RustFlakes
 {
-    public abstract class Oxidation<T>
+    public abstract class Oxidation<T> : IOxidation
     {
         public static readonly DateTime DefaultEpoch = new DateTime(2013, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
@@ -36,6 +36,11 @@ namespace RustFlakes
 
         public abstract T Oxidize();
 
+        object IOxidation.Oxidize()
+        {
+            return Oxidize();
+        }
+
         protected void Update()
         {
             var timeInMs = CurrentTime();
@@ -51,5 +56,7 @@ namespace RustFlakes
         {
             return (ulong) (DateTime.UtcNow - Epoch).TotalMilliseconds;
         }
+
+
     }
 }
