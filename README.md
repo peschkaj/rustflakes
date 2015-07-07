@@ -3,7 +3,7 @@ rustflakes
 
 An ordered ID generation service for .NET that is generator aware making it ideal for distributed ID generation. The implementation is heavily derivative of Boundary's [flake](https://github.com/boundary/flake).
 
-## Identifiers ## 
+## Identifiers ##
 
 Identifiers are generated as 128-bit numbers:
 
@@ -44,9 +44,9 @@ When you can't generate sequential identifiers yourself (Windows Azure SQL Datab
 
 It's probably not. I wrote this one afternoon in a hotel room because I was sick of thinking about T-SQL. A key differentiator between rustflakes and some other .NET based ID generators is that I made certain assumptions.
 
-1 - Other people are smarter than me. I borrowed from their work.
-2 - While machine identity isn't needed or desirable for some parts of a distributed system, they work great as arbitrary node identifiers. I don't make you choose a mechanism for your node identifier, but I don't foist my bad decisions on you either.
-3 - There is no 3
+1. Other people are smarter than me. I borrowed from their work.
+2. While machine identity isn't needed or desirable for some parts of a distributed system, they work great as arbitrary node identifiers. I don't make you choose a mechanism for your node identifier, but I don't foist my bad decisions on you either.
+3. There is no 3
 
 ### Thanks
 

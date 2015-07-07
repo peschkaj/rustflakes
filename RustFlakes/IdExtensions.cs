@@ -15,15 +15,17 @@ namespace RustFlakes
         // incorrectly sorted. In order to handle this, this extension class
         // provides the ability to front-pad an id with 0s so that it will sort
         // correctly in a lexicographic system.
-
+        // This approach is not auto-applied to ids and must be intentionally
+        // applied in the storage interface implementations.
         public static string ToLexicographicId(this BigInteger id)
         {
-            return id.ToString().PadLeft (39, '0');
+            return id.ToString().PadLeft(39, '0');
         }
 
         public static BigInteger ToBigInteger(this string id)
         {
-            return BigInteger.Parse(id, NumberStyles.AllowLeadingWhite);
+            return BigInteger.Parse(id);
         }
     }
 }
+
