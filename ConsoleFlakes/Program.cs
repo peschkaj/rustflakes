@@ -19,9 +19,9 @@ using System;
 
 namespace ConsoleFlakes
 {
-	public class MainClass
+	class Program
 	{
-		public static void Main(string[] args)
+		static void Main(string[] args)
 		{
 			TestOxidations();
 		    TestDecimalOxidations();
