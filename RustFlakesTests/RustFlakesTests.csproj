@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyTitle>RustFlakesTest</AssemblyTitle>
+    <AssemblyProduct>RustFlakesTest</AssemblyProduct>
+    <AssemblyCopyright>Copyright © 2018</AssemblyCopyright>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
