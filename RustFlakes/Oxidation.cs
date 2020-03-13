@@ -25,31 +25,44 @@ namespace RustFlakes
 
         protected ushort Counter;
         protected readonly DateTime Epoch;
-        protected ulong LastOxidizedInMs;
+        protected ulong LastOxidized;
+        protected ushort OxidationInterval;
 
         protected Oxidation(DateTime epoch)
         {
             Counter = 0;
             Epoch = epoch;
-            LastOxidizedInMs = CurrentTime();
+            OxidationInterval = 1;
+            LastOxidized = CurrentTime();
+        }
+
+        protected Oxidation(DateTime epoch, ushort oxidationIntervalInMs)
+        {
+            if (oxidationIntervalInMs == 0)
+                throw new ArgumentOutOfRangeException(nameof(oxidationIntervalInMs), "The oxidation interval must be at least 1 ms.");
+
+            Counter = 0;
+            Epoch = epoch;
+            OxidationInterval = oxidationIntervalInMs;
+            LastOxidized = CurrentTime();
         }
 
         public abstract T Oxidize();
 
         protected void Update()
         {
-            var timeInMs = CurrentTime();
+            var time = CurrentTime();
 
-            if (LastOxidizedInMs > timeInMs)
+            if (LastOxidized > time)
                 throw new ApplicationException("Clock is running backwards");
 
-            Counter = (ushort) ((LastOxidizedInMs < timeInMs) ? 0 : Counter + 1);
-            LastOxidizedInMs = timeInMs;
+            Counter = (ushort) ((LastOxidized < time) ? 0 : Counter + 1);
+            LastOxidized = time;
         }
 
         private ulong CurrentTime()
         {
-            return (ulong) (DateTime.UtcNow - Epoch).TotalMilliseconds;
+            return (ulong) ((DateTime.UtcNow - Epoch).TotalMilliseconds / OxidationInterval);
         }
     }
 }

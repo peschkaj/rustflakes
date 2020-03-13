@@ -95,7 +95,7 @@ namespace RustFlakes
 
             // next 8 bytes are the time counter
             for (var i = 0; i < 8; i++)
-                result[i + 8] = (byte) (LastOxidizedInMs >> (i*8));
+                result[i + 8] = (byte) (LastOxidized >> (i*8));
 
             return new BigInteger(result);
         }

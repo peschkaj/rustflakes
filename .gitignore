@@ -31,3 +31,4 @@ test-results
 packages/*
 testresults
 *.pfx
+.vs/

@@ -17,6 +17,7 @@
 
 using NUnit.Framework;
 using RustFlakes;
+using System.Threading;
 
 namespace RustFlakesTests
 {
@@ -56,6 +57,44 @@ namespace RustFlakesTests
             var key5 = oxidation.Oxidize();
 
             Assert.IsTrue(key5 > key4 && key4 > key3 && key3 > key2 && key2 > key);
+        }
+        [Test]
+        public void InDefaultOxidationShouldNotMaintain32BitTimestamp()
+        {
+            var oxidation = new UInt64Oxidation(WorkerId);
+
+            var key1 = oxidation.Oxidize();
+            Thread.Sleep(10);
+            var key2 = oxidation.Oxidize();
+            Thread.Sleep(10);
+            var key3 = oxidation.Oxidize();
+            Thread.Sleep(10);
+
+            var timestamp1 = (uint)(key1 >> 32);
+            var timestamp2 = (uint)(key2 >> 32);
+            var timestamp3 = (uint)(key3 >> 32);
+
+            Assert.IsTrue((timestamp1 != timestamp2) && (timestamp2 != timestamp3));
+        }
+
+        [Test]
+        public void InSlowOxidationShouldMaintain32BitTimestamp()
+        {
+            ushort intervalInMs = 1000; // 1 second
+            var oxidation = new UInt64Oxidation(WorkerId, intervalInMs);
+            
+            var key1 = oxidation.Oxidize();
+            Thread.Sleep(10);
+            var key2 = oxidation.Oxidize();
+            Thread.Sleep(10); 
+            var key3 = oxidation.Oxidize();
+            Thread.Sleep(10);
+
+            var timestamp1 = (uint)(key1 >> 32);
+            var timestamp2 = (uint)(key2 >> 32);
+            var timestamp3 = (uint)(key3 >> 32);
+
+            Assert.IsTrue((timestamp1 == timestamp2) || (timestamp2 == timestamp3));
         }
     }
 }

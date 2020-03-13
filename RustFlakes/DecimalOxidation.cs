@@ -56,8 +56,8 @@ namespace RustFlakes
 
             return new decimal(
                 (int) ((_identifier << 16) + Counter),
-                (int) ((LastOxidizedInMs << 16) + (_identifier >> 16)),
-                (int) ((LastOxidizedInMs >> 16) & 0xFFFFFFFF),
+                (int) ((LastOxidized << 16) + (_identifier >> 16)),
+                (int) ((LastOxidized >> 16) & 0xFFFFFFFF),
                 false,
                 0);
         }
