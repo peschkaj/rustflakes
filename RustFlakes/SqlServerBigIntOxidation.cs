@@ -12,7 +12,15 @@ namespace RustFlakes
         {
         }
 
+        public SqlServerBigIntOxidation(ushort identifier, ushort oxidationIntervalInMs) : base(identifier, oxidationIntervalInMs)
+        {
+        }
+
         public SqlServerBigIntOxidation(ushort identifier, DateTime epoch) : base(identifier, epoch)
+        {
+        }
+
+        public SqlServerBigIntOxidation(ushort identifier, DateTime epoch, ushort oxidationIntervalInMs) : base(identifier, epoch, oxidationIntervalInMs)
         {
         }
 
