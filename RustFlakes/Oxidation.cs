@@ -26,13 +26,13 @@ namespace RustFlakes
         protected ushort Counter;
         protected readonly DateTime Epoch;
         protected ulong LastOxidized;
-        protected ushort OxidationInterval;
+        protected ushort OxidationIntervalInMs;
 
         protected Oxidation(DateTime epoch)
         {
             Counter = 0;
             Epoch = epoch;
-            OxidationInterval = 1;
+            OxidationIntervalInMs = 1;
             LastOxidized = CurrentTime();
         }
 
@@ -43,7 +43,7 @@ namespace RustFlakes
 
             Counter = 0;
             Epoch = epoch;
-            OxidationInterval = oxidationIntervalInMs;
+            OxidationIntervalInMs = oxidationIntervalInMs;
             LastOxidized = CurrentTime();
         }
 
@@ -62,7 +62,7 @@ namespace RustFlakes
 
         private ulong CurrentTime()
         {
-            return (ulong) ((DateTime.UtcNow - Epoch).TotalMilliseconds / OxidationInterval);
+            return (ulong) ((DateTime.UtcNow - Epoch).TotalMilliseconds / OxidationIntervalInMs);
         }
     }
 }
