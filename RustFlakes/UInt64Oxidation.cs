@@ -28,8 +28,19 @@ namespace RustFlakes
         {
         }
 
+        public UInt64Oxidation(ushort identifier, ushort oxidationIntervalInMs)
+            : this(identifier, new DateTime(2013, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), oxidationIntervalInMs)
+        {
+        }
+
         public UInt64Oxidation(ushort identifier, DateTime epoch)
             : base(epoch)
+        {
+            _identifier = identifier;
+        }
+
+        public UInt64Oxidation(ushort identifier, DateTime epoch, ushort oxidationIntervalInMs)
+            : base(epoch, oxidationIntervalInMs)
         {
             _identifier = identifier;
         }
@@ -37,7 +48,7 @@ namespace RustFlakes
         public override ulong Oxidize()
         {
             Update();
-            return (LastOxidizedInMs << 32) + (ulong) (_identifier << 16) + Counter;
+            return (LastOxidized << 32) + (ulong) (_identifier << 16) + Counter;
         }
     }
 }
